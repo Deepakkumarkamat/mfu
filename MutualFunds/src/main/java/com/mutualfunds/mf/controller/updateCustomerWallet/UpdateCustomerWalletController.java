@@ -1,8 +1,11 @@
 package com.mutualfunds.mf.controller.updateCustomerWallet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mutualfunds.mf.service.updateCustomerWallet.UpdateCustomerWalletService;
 
 @Controller
+@CrossOrigin
 @RequestMapping("mutualfunds/wallet/update")
 public class UpdateCustomerWalletController {
 	@Autowired
@@ -34,5 +38,11 @@ public class UpdateCustomerWalletController {
 			return ResponseEntity.ok("Insufficient balance");
 		}
 		
+	}
+
+	@GetMapping(value = "/getAccountBalance", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@CrossOrigin
+	public ResponseEntity<Double> getHistory(@RequestParam("customerId") int customerId){
+		return ResponseEntity.ok(updateCustomerWalletService.getAccountBalance(customerId));
 	}
 }

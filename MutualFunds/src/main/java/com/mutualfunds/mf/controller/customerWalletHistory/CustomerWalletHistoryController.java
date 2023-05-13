@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ public class CustomerWalletHistoryController {
 	
 //	http://localhost:8090/mutualfunds/details/top?limit=5
 	@GetMapping(value = "/history", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@CrossOrigin
 	public ResponseEntity<List<CustomerWalletHistory>> getHistory(@RequestParam("customerId") int customerId){
 		System.out.println(customerId);
 		return ResponseEntity.ok(customerWalletHistoryService.getHistories(customerId));
